@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Jadwal Pelajaran SMAN 3 Kabupaten Tangerang</string>
+    <string name="app_name">Jadwal Pelajaran Trikabta</string>
     <string name="app_version">Version 1.0.5</string>
     <string name="no_connection_text">Tidak ada koneksi internet, harap cek internet anda!</string>
 </resources>

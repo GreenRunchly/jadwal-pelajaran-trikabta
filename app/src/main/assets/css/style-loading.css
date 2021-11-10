@@ -73,9 +73,10 @@
 	background: #4285f4;
 }
 .loader-subtext{
-	font-size: 12px;
+	font-size: 16px;
 	margin-top: 10px;
-	color: #98acab;
-	max-width: 200px;
+	color: #303841;
+	font-weight: bold;
+	max-width: 230px;
 	text-align: center;
 }
