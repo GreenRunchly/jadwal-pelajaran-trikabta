@@ -82,28 +82,27 @@
     </div>
 </body>
 <script type="text/javascript">
-    var versiAplikasi = '1.0.5-public-version';
-    var hasil = versiAplikasi;
+    var versiAplikasi = '1.0.5';
 
     function cekUpdate(versiAplikasi){
-        $.post("https://rizkiirfananshori.github.io/version.json",
-        {
-            versi: versiAplikasi
-        },
+        $.get("https://rizkiirfananshori.github.io/apps/jadwal-pelajaran/api/version.json",
         function(data, status){
-            hasil = data;
-            if (hasil != versiAplikasi){
+            
+            if (data.public != versiAplikasi){
+                
                 $('#parentLayout').addClass('off');
                 $('#parentLayout').removeClass('on');
                 $('#update').addClass('on');
                 $('#update').removeClass('off');
+                //console.log(data.public);
             }else{
                 $('#parentLayout').addClass('on');
                 $('#parentLayout').removeClass('off');
                 $('#update').addClass('off');
                 $('#update').removeClass('on');
+                //console.log(data.public);
             }
-            console.log(data);
+            
         });
     }
     cekUpdate(versiAplikasi);

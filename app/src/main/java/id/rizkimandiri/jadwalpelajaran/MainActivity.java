@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
       adView = findViewById(R.id.adView);
       AdRequest adRequest = new AdRequest.Builder().build();
-      adView.loadAd(adRequest);
+      //adView.loadAd(adRequest);
 
       webView = findViewById(R.id.webView);
       webView.setWebViewClient(new WebViewClient());
