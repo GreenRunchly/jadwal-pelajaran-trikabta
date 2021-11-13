@@ -21,7 +21,6 @@
     <!--- Script --->
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/swiper/swiper-bundle.min.js"></script>
-    <script src="js/script.js"></script>
     
 </head>
 <body>
@@ -31,6 +30,53 @@
             <div class="loader-container-progress"></div>
         </div>
         <p class="loader-subtext" id="loading-tips">...</p>
+    </div>
+
+    <div id="app-notification-connection" class="modal">
+        <div class="modal-content" style="display: flex;justify-content: center;flex-direction: column;">
+            <div class="modal-bar">
+                <div class="modal-bar-center">
+                    <img class="icon" src="i/wifi-slash.svg">
+                </div>
+            </div>
+            <br>
+            <div class="title center">
+                <h2>Connection Failed</h2>
+                <h4>Harap cek koneksi internet anda!</h4>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="app-notification-maintenance" class="modal">
+        <div class="modal-content" style="display: flex;justify-content: center;flex-direction: column;">
+            <div class="modal-bar">
+                <div class="modal-bar-center">
+                    <img class="icon" src="i/tools.svg">
+                </div>
+            </div>
+            <br>
+            <div class="title center">
+                <h2>Under Maintenance</h2>
+                <h4>Maaf, aplikasi sedang ada perbaikan, kembali lagi nanti.</h4>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="app-notification-update" class="modal">
+        <div class="modal-content" style="display: flex;justify-content: center;flex-direction: column;">
+            <div class="modal-bar">
+                <div class="modal-bar-center">
+                    <img class="icon" src="i/google-play.svg">
+                </div>
+            </div>
+            <br>
+            <div class="title center">
+                <h2>Update Available</h2>
+                <h4>Aplikasi dengan versi terbaru sudah tersedia!</h4>
+            </div>
+        </div>
     </div>
     
     <div id="app-login" class="modal">
@@ -111,7 +157,7 @@
             </div>
             <div class="modal-bar">
                 <div class="modal-bar-center">
-                    <img src="assets/creator.jpg" style="width:120px;border-radius: 50%;aspect-ratio:1/1;">
+                    <img src="assets/creator.jpg" style="border-radius: 50%;">
                 </div>
             </div>
             
@@ -190,11 +236,11 @@
             <div class="swiper-container other-swiper size size-4 round">
                 <div class="swiper-wrapper">
                     
-                    <a class="swiper-slide effect block half" style="background-image: url('style-1.0.7/slides/.jpg');">
+                    <a class="swiper-slide effect block half">
                         <img src="i/school.svg">
                         <h4>PTM</h4>
                     </a>
-                    <a class="swiper-slide effect block half" style="background-image: url('style-1.0.7/slides/.jpg');">
+                    <a class="swiper-slide effect block half">
                         <img src="i/home.svg">
                         <h4>PJJ</h4>
                     </a>
@@ -210,7 +256,7 @@
             <div id="berita">
                 <div class="swiper-container other-swiper size size-3 round" >
                     <div class="swiper-wrapper" >
-                        <a class="swiper-slide left" style="background-image: url('style-1.0.7/img/default-bg.jpg');" onclick="cekBerita('refresh');">
+                        <a class="swiper-slide left" onclick="cekBerita('refresh');">
                             <div class="box">
                                 <h4>Connecting Failed</h4>
                                 <h4 class="small">Ketuk untuk menghubungkan kembali.</h4>
@@ -223,6 +269,7 @@
             <a class="title center toggle" toggle-id="app-settings" style="margin-top: 0px;margin-bottom: 16px;">
                
                 <h4 style="text-align: center;">Version <span id="appVersion"></span></h4>
+                <input type="hidden" id="appVersionInput" value="1.2.0">
             </a>
 
         </div>
@@ -230,10 +277,14 @@
     </div>
 
 </body>
+<script src="js/script.js"></script>
 <script type="text/javascript">
-    var versiAplikasi = '1.2.0';
+    var versiAplikasi = $("#appVersionInput").val();
 
     $("#appVersion").html(versiAplikasi);
+
+    /* Check koneksi server */
+    cekKoneksi();
 
     /* Check Update */
     cekUpdate(versiAplikasi);

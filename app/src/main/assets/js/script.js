@@ -1,4 +1,3 @@
-
 window.onload = function () {
     
     var intervalStatus = setInterval(function () {
@@ -38,6 +37,40 @@ $(document).on('click','.toggle',function(e){
         $("#"+idnya).removeClass("off");
     }
 });
+var appVersion = $("#appVersionInput").val();
+console.log(appVersion);
+/* Check Internet Connection Function*/
+function cekKoneksi(){
+    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/isconnected.json?"+ Date.now(),
+    function(data, status){
+
+        if (data.maintenance == 1){
+
+            $("#app-notification-maintenance").addClass("on");
+            $("#app-notification-maintenance").removeClass("off");
+
+        }else{
+
+            $("#app-notification-connection").addClass("off");
+            $("#app-notification-connection").removeClass("on");
+
+        }
+        cekUpdate(appVersion);
+        //console.log(status);
+        
+    }).fail(function(){ 
+        
+        $("#app-notification-connection").addClass("on");
+        $("#app-notification-connection").removeClass("off");
+        console.log('fail');
+
+    });
+}
+setInterval(function(){ 
+
+    cekKoneksi();
+
+}, 10000);
 
 /* Addon Function */
 function acakArray1D(arra1) {
@@ -63,15 +96,14 @@ function cekUpdate(versiAplikasi){
     function(data, status){
         
         if (data.beta != versiAplikasi){
-            $('#parentLayout').addClass('off');
-            $('#parentLayout').removeClass('on');
-            $('#update').addClass('on');
-            $('#update').removeClass('off');
+
+            $("#app-notification-update").addClass("on");
+            $("#app-notification-update").removeClass("off");
+        
         }else{
-            $('#parentLayout').addClass('on');
-            $('#parentLayout').removeClass('off');
-            $('#update').addClass('off');
-            $('#update').removeClass('on');
+            
+            $("#app-notification-update").addClass("off");
+            $("#app-notification-update").removeClass("on");
         }
         
     });
@@ -87,7 +119,6 @@ function cekBanner(){
         function loadBanner(item){
             addBanner += '<a class="swiper-slide" style="background-image: url('+ item +');"></a>';
         }
-        console.log(addBanner);
         $("#banners").append('<div class="swiper-container banner-swiper size size-2 full"><div class="swiper-wrapper">' + addBanner + '</div><div class="swiper-pagination"></div></div>');
         $("#banners").append('<script> var swiper = new Swiper(".banner-swiper", {spaceBetween: 10,centeredSlides: true,loop:true,autoplay: {delay: 2000,disableOnInteraction: false,},pagination: {el: ".swiper-pagination",clickable: true,},navigation: {nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev",},});</script>');
     });
@@ -229,3 +260,7 @@ $(document).on('click','.penerapanSettings',function(e){
     console.log('initial penerapan');
 });
 
+$(document).on('click','.refreshConnection',function(e){
+    cekKoneksi();
+    console.log('initial refresh');
+});
