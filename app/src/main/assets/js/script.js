@@ -13,7 +13,7 @@ window.onload = function () {
             clearInterval(intervalStatus2);
 
         },1000);
-	},2000);
+	},1000);
 }
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
@@ -26,36 +26,16 @@ window.onscroll = function() {
     prevScrollpos = currentScrollPos;
 }
 
-$(document).on('click','.toogle',function(e){
-    var idnya = $(this).attr("toogle");
-    var has = $("#"+idnya).hasClass('on');         
+$(document).on('click','.toggle',function(e){
+    var idnya = $(this).attr("toggle-id");
+    var has = $("#"+idnya).hasClass("on");         
 
     if (has == true){
         $("#"+idnya).addClass("off");
         $("#"+idnya).removeClass("on");
-        console.log('off');
-        $(".navigasi-container").removeClass('navigasi-container-hide-down');  
     }else{
         $("#"+idnya).addClass("on");
         $("#"+idnya).removeClass("off");
-        console.log('on');
-        $(".navigasi-container").addClass('navigasi-container-hide-down');  
-    }
-});
-
-$(document).on('click','.toogle-class',function(e){
-    var idnya = $(this).attr("toogle-id");
-    var classnya = $(this).attr("class-tambah");
-    var has = $("#"+idnya).hasClass(classnya);         
-
-    if (has == true){
-        $("#"+idnya).addClass(classnya + "-off");
-        $("#"+idnya).removeClass(classnya);
-        console.log(classnya + 'off');
-    }else{
-        $("#"+idnya).addClass(classnya);
-        $("#"+idnya).removeClass(classnya + "-off");
-        console.log(classnya + 'on');  
     }
 });
 
@@ -97,12 +77,155 @@ function cekUpdate(versiAplikasi){
     });
 }
 /* Load Tips Function */
+function cekBanner(){
+        
+    addBanner = '';
+    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/banner.json",
+    function(data, status){
+        $("#banners").empty();
+        data.forEach(loadBanner);
+        function loadBanner(item){
+            addBanner += '<a class="swiper-slide" style="background-image: url('+ item +');"></a>';
+        }
+        console.log(addBanner);
+        $("#banners").append('<div class="swiper-container banner-swiper size size-2 full"><div class="swiper-wrapper">' + addBanner + '</div><div class="swiper-pagination"></div></div>');
+        $("#banners").append('<script> var swiper = new Swiper(".banner-swiper", {spaceBetween: 10,centeredSlides: true,loop:true,autoplay: {delay: 2000,disableOnInteraction: false,},pagination: {el: ".swiper-pagination",clickable: true,},navigation: {nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev",},});</script>');
+    });
+
+}
+/* Check Berita SMAN 3 Kab Tang */
+function cekBerita(){
+    //https://api.sman3kabupatentangerang.sch.id/wp-get-post.php
+    //http://localhost:8080/jadwalkelas/v4/api/wp-get-post.php
+    $.post("https://api.sman3kabupatentangerang.sch.id/wp-get-post.php",
+    {},
+    function(data, status){
+        hasil = data;
+        $('#berita').html(hasil);
+    });
+}
+
+/* Load Tips Function */
 function cekTips(){
         
     $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/tips.json",
     function(data, status){
         temp = acakArray1D(data);
-        $("#loading-tips").html(temp[0]+'...');
+        $("#loading-tips").html(temp[0]);
     });
 
 }
+
+/* Storage Local Data */
+function kelasChangeOption(input,pada){
+    if (pada == 'kelas_jurusan'){
+        if (input == 'mipa'){
+            $("#select_kelas_ruang").empty();
+            $("#select_kelas_ruang").append('<option value="">Pilih Ruangan</option>');
+            for (var i = 1; i <= 7; i++) {
+                $("#select_kelas_ruang").append('<option value="' + i + '">' + i + '</option>');
+            }
+        }
+        if (input == 'ips'){
+            $("#select_kelas_ruang").empty();
+            $("#select_kelas_ruang").append('<option value="">Pilih Ruangan</option>');
+            for (var i = 1; i <= 5; i++) {
+                $("#select_kelas_ruang").append('<option value="' + i + '">' + i + '</option>');
+            }
+        }
+    }
+}
+function setData(input,pada){
+    /* simpan data */
+    localStorage.setItem(pada, input);
+    kelasChangeOption(input, pada);
+    console.log('Set data');
+}  
+function loadData(pada){
+    /* load data */
+    return localStorage.getItem(pada);
+}
+function deleteData(pada){
+    /* load data */
+    return localStorage.removeItem(pada);
+}
+function cekDataSettings(){
+    /* Menerapkan Data */
+    // Release Item
+    var mode_debug_temp = loadData('mode_debug');
+
+    if ( mode_debug_temp !== null ) {
+        $("#select_mode_debug").val(mode_debug_temp);
+    }else{
+        setData('off','mode_debug');
+    }
+
+    //Theme Item
+    var app_theme_temp = loadData('app_theme');
+
+    if ( app_theme_temp !== null ) {
+        $("#select_app_theme").val(app_theme_temp);
+
+        switch (app_theme_temp) {
+            case 'light-theme':
+                themelink = "css/style-light.css";
+                break;
+            case 'dark-theme':
+                themelink = "css/style-dark.css";
+                break;
+            default:
+                themelink = "css/style-light.css";
+        }
+
+        $("head link#app-theme").attr("href", themelink);
+    }else{
+        setData('light-theme','app_theme');
+    }
+
+    //Kelas Items
+    var kelas_temp = loadData('kelas');
+    var kelas_jurusan_temp = loadData('kelas_jurusan');
+    var kelas_ruang_temp = loadData('kelas_ruang');
+    var fill_kelas_complete = 0;
+
+    kelasChangeOption(kelas_jurusan_temp, 'kelas_jurusan');
+
+    if ( kelas_temp !== null ) {
+        $("#select_kelas").val(kelas_temp);
+        fill_kelas_complete ++;
+    }
+    if ( kelas_jurusan_temp !== null ) {
+        $("#select_kelas_jurusan").val(kelas_jurusan_temp);
+        fill_kelas_complete ++;
+    }
+    if ( kelas_ruang_temp !== null ) {
+        $("#select_kelas_ruang").val(kelas_ruang_temp);
+        fill_kelas_complete ++;
+    }
+
+    if (fill_kelas_complete == 3){
+        var kelas_complete = kelas_temp + '-' + kelas_jurusan_temp + '-' + kelas_ruang_temp;
+        $("#kelas").html('Kelas ' + kelas_complete.toUpperCase().replace(/-/g, ' '));
+        setData(true,'startup_done');
+    }
+    console.log('Filled ' + fill_kelas_complete);
+
+    // Startup Item
+    var startup_done_temp = loadData('startup_done');
+
+    if ( startup_done_temp !== null ) {
+        
+    }else{
+        $("#app-login").addClass("on");
+        $("#app-login").removeClass("off");
+        console.log('Not Done yet');
+    }
+
+    console.log('Finish penerapan');
+}
+
+$(document).on('click','.penerapanSettings',function(e){
+    cekDataSettings();
+    console.log('initial penerapan');
+});
+

@@ -1,0 +1,57 @@
+body{
+	background-color: #111111;
+}
+.loading-screen{
+	background-color: #1f1f1f;
+}
+.loader-subtext{
+	color: #e1e1e1;
+}
+.navigation-bar{
+	background-color: #1e1e1e !important;
+}
+.swiper-slide.effect{
+	background-color: #1e1e1e;
+}
+.swiper-slide.effect:active{
+	background-color: #6a6a6a;
+}
+.title h2{
+    color: #e1e1e1;
+}
+.title h4{
+    color: #e1e1e1;
+}
+.nb-button h2{
+    color: #e1e1e1;
+}
+.nb-button h4{
+    color: #e1e1e1;
+}
+.nb-button i{
+    color: #e1e1e1;
+}
+.nb-button.effect:active{
+    background-color: #6a6a6a;
+}
+.modal-content{
+	background-color: #1f1f1f;
+}
+.mdl-button.effect:active{
+    background-color: #6a6a6a;
+}
+.mdl-button h2{
+    color: #e1e1e1;
+}
+.mdl-button h3{
+    color: #e1e1e1;
+}
+.mdl-button h4{
+    color: #e1e1e1;
+}
+.mdl-button i{
+    color: #e1e1e1;
+}
+label{
+	color: #e1e1e1 !important;
+}

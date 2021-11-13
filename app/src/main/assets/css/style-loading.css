@@ -73,10 +73,10 @@
 	background: #4285f4;
 }
 .loader-subtext{
-	font-size: 16px;
+	font-size: 14px;
 	margin-top: 10px;
 	color: #303841;
-	font-weight: bold;
+	font-weight: normal;
 	max-width: 230px;
 	text-align: center;
 }
