@@ -53,8 +53,82 @@ $(document).on('click','.toggle-table',function(e){
         $("#"+idnya).removeClass("off");
     }
 });
+
 var appVersion = $("#appVersionInput").val();
 console.log(appVersion);
+
+/* Menentukan Hari */
+var d = new Date();
+var hari = d.getDay();
+var jam = d.getHours();
+var menit = d.getMinutes();
+var detik = d.getSeconds();
+var waktu = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+var hariText = '';
+console.log(jam+'jam'+menit+'menit'+detik+'detik');
+switch (hari) {
+    case 0:
+        hariText = "Minggu";
+        break;
+    case 1:
+        hariText = "Senin";
+        break;
+    case 2:
+        hariText = "Selasa";
+        break;
+    case 3:
+        hariText = "Rabu";
+        break;
+    case 4:
+        hariText = "Kamis";
+        break;
+    case 5:
+        hariText = "Jumat";
+        break;
+    case 1:
+        hariText = "Sabtu";
+        break;
+    default:
+        hariText = "Unknow";
+}
+var waktuRefresh = setInterval(function(){ 
+
+    d = new Date();
+    hari = d.getDay();
+    jam = d.getHours();
+    menit = d.getMinutes();
+    detik = d.getSeconds();
+    waktu = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    hariText = '';
+    console.log(jam+'jam'+menit+'menit'+detik+'detik');
+    switch (hari) {
+        case 0:
+            hariText = "Minggu";
+            break;
+        case 1:
+            hariText = "Senin";
+            break;
+        case 2:
+            hariText = "Selasa";
+            break;
+        case 3:
+            hariText = "Rabu";
+            break;
+        case 4:
+            hariText = "Kamis";
+            break;
+        case 5:
+            hariText = "Jumat";
+            break;
+        case 1:
+            hariText = "Sabtu";
+            break;
+        default:
+            hariText = "Unknow";
+    }
+
+}, 1000);
+
 /* Check Internet Connection Function*/
 function cekKoneksi(){
     $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/isconnected.json?"+ Date.now(),
@@ -84,9 +158,12 @@ function cekKoneksi(){
 }
 var chknet = setInterval(function(){ 
 
+    var jenis = $("#jenisInput").val();
+    var kelas = $("#kelasInput").val();
+    cekJadwalWidget(kelas, 'ptm');
     cekKoneksi();
 
-}, 10000);
+}, 15000);
 
 /* Addon Function */
 function acakArray1D(arra1) {
@@ -108,7 +185,7 @@ function acakArray1D(arra1) {
 
 /* Check Update Function */
 function cekUpdate(versiAplikasi){
-    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/version.json",
+    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/version.json?"+ Date.now(),
     function(data, status){
         
         if (data.beta != versiAplikasi){
@@ -133,7 +210,7 @@ function cekUpdate(versiAplikasi){
 function cekBanner(){
         
     addBanner = '';
-    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/banner.json",
+    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/banner.json?"+ Date.now(),
     function(data, status){
         $("#banners").empty();
         data.forEach(loadBanner);
@@ -141,7 +218,7 @@ function cekBanner(){
             addBanner += '<a class="swiper-slide" style="background-image: url('+ item +');"></a>';
         }
         $("#banners").append('<div class="swiper-container banner-swiper size size-2 full"><div class="swiper-wrapper">' + addBanner + '</div><div class="swiper-pagination"></div></div>');
-        $("#banners").append('<script> var swiper = new Swiper(".banner-swiper", {spaceBetween: 10,centeredSlides: true,loop:true,autoplay: {delay: 2000,disableOnInteraction: false,},pagination: {el: ".swiper-pagination",clickable: true,},navigation: {nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev",},});</script>');
+        $("#banners").append('<script> var swiper = new Swiper(".banner-swiper", {spaceBetween: 0,centeredSlides: true,loop:true,autoplay: {delay: 2000,disableOnInteraction: false,},pagination: {el: ".swiper-pagination",clickable: true,},navigation: {nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev",},});</script>');
     });
 
 }
@@ -160,7 +237,7 @@ function cekBerita(){
 /* Load Tips Function */
 function cekTips(){
         
-    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/tips.json",
+    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/tips.json?"+ Date.now(),
     function(data, status){
         temp = acakArray1D(data);
         $("#loading-tips").html(temp[0]);
@@ -169,19 +246,27 @@ function cekTips(){
 }
 /* Load Jadwal Function */
 function cekJadwal(kelas,tipe){
-    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/legend-ptm.json",
+
+    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/legend-ptm.json?"+ Date.now(),
     function(data, status){
         var legendData = data;
-        $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/" + kelas + "-" + tipe + ".json",
+        $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/" + kelas + "-" + tipe + ".json?"+ Date.now(),
         function(data, status){
             $("#table-jadwal").empty();
             addTable = '';
             //console.log(data);
             $.each(data.a, function (index, obj) {
+
+                if (index == hariText.toLowerCase()){
+                    var setTable = 'on';
+                    //console.log(index+'-'+hariText.toLowerCase());
+                }else{
+                    var setTable = 'off';
+                }
                 
                 indexEdit = index.substr(0,1).toUpperCase()+index.substr(1);
-                addTable += '<div class="table-jadwal-head toggle-table" reset-class="table-jadwal" toggle-id="ptm-' + index + '"><h2>' + indexEdit + '</h2></div>';
-                addTable += '<table class="table-jadwal off"  id="ptm-' + index + '"><tr><th class="jam">Jam</th><th class="waktu">Waktu</th><th class="mapel">Mata Pelajaran</th></tr>'
+                addTable += '<div class="table-jadwal-head toggle-table" reset-class="table-jadwal" toggle-id="ptm-' + index + '"><img src="i/book.svg"><h2>' + indexEdit + '</h2></div>';
+                addTable += '<table class="table-jadwal ' + setTable + '"  id="ptm-' + index + '"><tr><th class="jam">Jam</th><th class="waktu">Waktu</th><th class="mapel">Mata Pelajaran</th></tr>'
                 $.each(obj, function (key, value) {
                     //console.log(key);
                     //console.log(value);
@@ -200,6 +285,84 @@ function cekJadwal(kelas,tipe){
             $("#table-jadwal").html('<div class="loading-page"><img class="icon-red" src="i/times.svg"></div>');
 
         });
+    });
+
+}
+
+function cekJadwalWidget(kelas,tipe){
+
+    console.log('Check Widget');
+
+    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/legend-ptm.json?"+ Date.now(),
+    function(data, status){
+        var legendData = data;
+        $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/" + kelas + "-" + tipe + ".json?"+ Date.now(),
+        function(data, status){
+            var gotDay = 0;gotMapel = 0;
+            $.each(data.a, function (index, obj) {
+                console.log('loop widget')
+                if (index == hariText.toLowerCase()){
+                    console.log(hariText.toLowerCase());
+                    //console.log(jam+':'+menit);
+                    gotDay = 1;
+                    $.each(obj, function (key, value) {
+
+                        waktupertama = value.jam1.split('.');
+                        jam_mapel = parseInt(waktupertama[0]);
+                        menit_mapel = parseInt(waktupertama[1]);
+                        waktukedua = value.jam2.split('.');
+                        jam_mapel_2 = parseInt(waktukedua[0]);
+                        menit_mapel_2 = parseInt(waktukedua[1]);
+
+                        kodemapel = 'no'+ value.mapel;
+                        console.log('each');
+                        console.log(legendData[kodemapel].mapel);
+                        if (jam >= jam_mapel){
+                            if ((menit >= menit_mapel) || (jam >= jam_mapel+1)){
+                                //console.log(jam+'>'+jam_mapel);
+                                console.log(menit+'>'+menit_mapel);
+                                gotMapel = 1;
+                                $("#widget-jadwal-detail-hari").html(hariText);
+                                $("#widget-jadwal-detail-mapel").html(legendData[kodemapel].mapel);
+                                $("#widget-jadwal-detail-namaguru").html(legendData[kodemapel].nama);
+                                $("#widget-jadwal-clock").html('<h2>' + value.jam1.replace('.',':') + '</h2><h2>' + value.jam2.replace('.',':') + '</h2>');
+                            }
+                        }else{
+                            if (gotMapel == 0){
+                                $("#widget-jadwal-detail-hari").html(hariText);
+                                $("#widget-jadwal-detail-mapel").html('Belum dimulai');
+                                $("#widget-jadwal-detail-namaguru").html('Mengambil data...');
+                            }
+                        }
+                        console.log(menit+' [[[]]] '+detik);
+                        
+                    });
+                    
+                }else{
+                    if (gotDay == 0){
+                        $("#widget-jadwal-detail-hari").html(hariText);
+                        $("#widget-jadwal-detail-mapel").html('Tidak ada Pelajaran');
+                        $("#widget-jadwal-detail-namaguru").html('Selamat Berlibur!');
+                        $("#widget-jadwal-clock").html('<div class="loading-page"><img class="icon-white" src="i/cloud-moon.svg"></div>');
+                    }
+                }
+            });
+            
+        }).fail(function(){ 
+        
+            $("#widget-jadwal-detail-hari").html('Oops');
+            $("#widget-jadwal-detail-mapel").html('Failed to load');
+            $("#widget-jadwal-detail-namaguru").html('Disconnected from server');
+            $("#widget-jadwal-clock").html('<div class="loading-page anim-rotate"><img class="icon-white" src="i/spinner-third.svg"></div>');
+
+        });
+    }).fail(function(){ 
+        
+        $("#widget-jadwal-detail-hari").html('Oops');
+        $("#widget-jadwal-detail-mapel").html('Failed to load');
+        $("#widget-jadwal-detail-namaguru").html('Disconnected from server');
+        $("#widget-jadwal-clock").html('<div class="loading-page anim-rotate"><img src="i/spinner-third.svg"></div>');
+
     });
 
 }
@@ -261,13 +424,16 @@ function cekDataSettings(){
             case 'dark-theme':
                 themelink = "css/style-dark.css";
                 break;
+            case 'default-theme':
+                themelink = "css/style-default.css";
+                break;
             default:
-                themelink = "css/style-light.css";
+                themelink = "css/style-default.css";
         }
 
         $("head link#app-theme").attr("href", themelink);
     }else{
-        setData('light-theme','app_theme');
+        setData('default-theme','app_theme');
     }
 
     //Kelas Items
@@ -310,6 +476,11 @@ function cekDataSettings(){
         console.log('Not Done yet');
     }
 
+    //Widget Set
+    var jenis = $("#jenisInput").val();
+    var kelas = $("#kelasInput").val();
+    cekJadwalWidget(kelas, 'ptm');
+
     console.log('Finish penerapan');
 }
 
@@ -326,6 +497,7 @@ $(document).on('click','.refreshConnection',function(e){
 $(document).on('click','.loadJadwal',function(e){
     var jenis = $(this).attr('jenis');
     var kelas = $("#kelasInput").val();
+    $("#jenisInput").val(jenis);
 
     $("#table-jadwal").html('<div class="loading-page anim-rotate"><img src="i/spinner-third.svg"></div>');
 

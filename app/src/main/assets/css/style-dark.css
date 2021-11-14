@@ -8,10 +8,10 @@ body{
 	color: #e1e1e1;
 }
 .navigation-bar{
-	background-color: #242424 !important;
+	background-color: #343434 !important;
 }
 .swiper-slide.effect{
-	background-color: #242424;
+	background-color: #343434;
 }
 .swiper-slide.effect:active{
 	background-color: #6a6a6a;
@@ -59,10 +59,13 @@ label{
     filter: invert(100%) sepia(3%) saturate(4%) hue-rotate(287deg) brightness(105%) contrast(100%);
 }
 .table-jadwal-head{
-    background-color: #242424;
+    background-color: #343434;
+}
+.table-jadwal-head img{
+    filter: invert(100%) sepia(3%) saturate(4%) hue-rotate(287deg) brightness(105%) contrast(100%);
 }
 .table-jadwal th{
-    background-color: #242424;
+    background-color: #343434;
 }
 .loading-page img{
     filter: invert(100%) sepia(3%) saturate(4%) hue-rotate(287deg) brightness(105%) contrast(100%);
@@ -73,3 +76,10 @@ label{
 
 .table-jadwal tr:nth-child(odd){background-color: #121212;}
 .table-jadwal tr:nth-child(even){background-color: #0c0c0c;}
+
+.widget-jadwal{
+
+}
+.widget-jadwal .widget-jadwal-content{
+    background-color: #343434;
+}

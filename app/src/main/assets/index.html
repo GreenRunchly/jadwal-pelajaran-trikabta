@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style-loading.css"/>
     <link rel="stylesheet" href="js/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css"/>
-    <link id="app-theme" rel="stylesheet" href="css/style.css"/>
+    <link id="app-theme" rel="stylesheet" href="css/style-light.css"/>
     
 
     <!--- Script --->
@@ -133,6 +133,7 @@
             <form autocomplete="off">
                 <label>Theme</label>
                 <select onchange="setData(this.value,'app_theme');" id="select_app_theme">
+                    <option value="default-theme">Default Theme</option>
                     <option value="light-theme">Light Theme</option>
                     <option value="dark-theme">Dark Theme</option>
                 </select>
@@ -192,6 +193,7 @@
                     <h2>Jadwal Pelajaran</h2>
                     <h4 id="kelas">...</h4>
                     <input type="hidden" id="kelasInput" value="">
+                    <input type="hidden" id="jenisInput" value="ptm">
                 </a>
             </div>
             <div class="navigation-bar-right">
@@ -229,16 +231,26 @@
                 </script>
             </div>
 
-            <div class="title">
-                <h2>Opsi Jadwal Pelajaran</h2>
-                <h4>Akan disesuaikan dengan kelas yang dipilih.</h4>
+            <div class="widget-jadwal">
+                <div class="widget-jadwal-content" >
+                    <div class="widget-jadwal-content-block" id="widget-jadwal-detail">
+                        <h4 id="widget-jadwal-detail-hari">Hari</h4>
+                        <h2 id="widget-jadwal-detail-mapel">Mata Pelajaran</h2>
+                        <h4 id="widget-jadwal-detail-namaguru">Nama Guru</h4>
+                    </div>
+                    <div class="widget-jadwal-content-block clock" id="widget-jadwal-clock">
+                        <div class="loading-page anim-rotate"><img src="i/spinner-third.svg"></div>
+                    </div>
+                </div>
             </div>
+
+            
 
             <div class="swiper-container other-swiper size size-4 round">
                 <div class="swiper-wrapper">
                     
                     <a class="swiper-slide effect block half loadJadwal" jenis="ptm">
-                        <img src="i/school.svg">
+                        <img src="i/chalkboard-teacher.svg">
                         <h4>PTM</h4>
                     </a>
                     <a class="swiper-slide effect block half loadJadwal" jenis="pjj">
@@ -249,6 +261,7 @@
                 </div>
                 
             </div>
+
             <div id="table-jadwal" class="subpage">
                 
             </div>
