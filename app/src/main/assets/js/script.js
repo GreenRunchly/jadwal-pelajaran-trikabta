@@ -37,6 +37,22 @@ $(document).on('click','.toggle',function(e){
         $("#"+idnya).removeClass("off");
     }
 });
+$(document).on('click','.toggle-table',function(e){
+    var idnya = $(this).attr("toggle-id");
+    var resetnya = $(this).attr("reset-class");
+    var has = $("#"+idnya).hasClass("on");         
+
+    $("."+resetnya).addClass("off");
+    $("."+resetnya).removeClass("on");
+
+    if (has == true){
+        $("#"+idnya).addClass("off");
+        $("#"+idnya).removeClass("on");
+    }else{
+        $("#"+idnya).addClass("on");
+        $("#"+idnya).removeClass("off");
+    }
+});
 var appVersion = $("#appVersionInput").val();
 console.log(appVersion);
 /* Check Internet Connection Function*/
@@ -66,7 +82,7 @@ function cekKoneksi(){
 
     });
 }
-setInterval(function(){ 
+var chknet = setInterval(function(){ 
 
     cekKoneksi();
 
@@ -106,6 +122,11 @@ function cekUpdate(versiAplikasi){
             $("#app-notification-update").removeClass("on");
         }
         
+    }).fail(function(){ 
+        
+        $("#app-notification-update").addClass("off");
+        $("#app-notification-update").removeClass("on");
+
     });
 }
 /* Load Tips Function */
@@ -143,6 +164,42 @@ function cekTips(){
     function(data, status){
         temp = acakArray1D(data);
         $("#loading-tips").html(temp[0]);
+    });
+
+}
+/* Load Jadwal Function */
+function cekJadwal(kelas,tipe){
+    $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/legend-ptm.json",
+    function(data, status){
+        var legendData = data;
+        $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/" + kelas + "-" + tipe + ".json",
+        function(data, status){
+            $("#table-jadwal").empty();
+            addTable = '';
+            //console.log(data);
+            $.each(data.a, function (index, obj) {
+                
+                indexEdit = index.substr(0,1).toUpperCase()+index.substr(1);
+                addTable += '<div class="table-jadwal-head toggle-table" reset-class="table-jadwal" toggle-id="ptm-' + index + '"><h2>' + indexEdit + '</h2></div>';
+                addTable += '<table class="table-jadwal off"  id="ptm-' + index + '"><tr><th class="jam">Jam</th><th class="waktu">Waktu</th><th class="mapel">Mata Pelajaran</th></tr>'
+                $.each(obj, function (key, value) {
+                    //console.log(key);
+                    //console.log(value);
+                    kodemapel = 'no'+ value.mapel;
+                    jamke = key.replace('no','');
+                    addTable += '<tr><td class="jam">' +jamke+ '</td><td class="waktu"><h4>' + value.jam1 + '</h4><h4>' + value.jam2 + '</h4></td><td class="mapel"><h2>' + legendData[kodemapel].mapel + '</h2><h4>' + legendData[kodemapel].nama + '</h4></td></tr>';
+
+                });
+                addTable += '</table>';
+            });
+
+            $("#table-jadwal").html(addTable);
+            
+        }).fail(function(){ 
+        
+            $("#table-jadwal").html('<div class="loading-page"><img class="icon-red" src="i/times.svg"></div>');
+
+        });
     });
 
 }
@@ -237,6 +294,7 @@ function cekDataSettings(){
     if (fill_kelas_complete == 3){
         var kelas_complete = kelas_temp + '-' + kelas_jurusan_temp + '-' + kelas_ruang_temp;
         $("#kelas").html('Kelas ' + kelas_complete.toUpperCase().replace(/-/g, ' '));
+        $("#kelasInput").val(kelas_complete);
         setData(true,'startup_done');
     }
     console.log('Filled ' + fill_kelas_complete);
@@ -263,4 +321,20 @@ $(document).on('click','.penerapanSettings',function(e){
 $(document).on('click','.refreshConnection',function(e){
     cekKoneksi();
     console.log('initial refresh');
+});
+
+$(document).on('click','.loadJadwal',function(e){
+    var jenis = $(this).attr('jenis');
+    var kelas = $("#kelasInput").val();
+
+    $("#table-jadwal").html('<div class="loading-page anim-rotate"><img src="i/spinner-third.svg"></div>');
+
+    var loadJadwalInterval = setInterval(function(){ 
+
+        cekJadwal(kelas, jenis);
+        clearInterval(loadJadwalInterval);
+
+    }, 1000);
+    
+    console.log('initial jadwal');
 });

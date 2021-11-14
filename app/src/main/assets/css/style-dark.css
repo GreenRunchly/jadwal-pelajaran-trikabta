@@ -8,10 +8,10 @@ body{
 	color: #e1e1e1;
 }
 .navigation-bar{
-	background-color: #1e1e1e !important;
+	background-color: #242424 !important;
 }
 .swiper-slide.effect{
-	background-color: #1e1e1e;
+	background-color: #242424;
 }
 .swiper-slide.effect:active{
 	background-color: #6a6a6a;
@@ -58,3 +58,18 @@ label{
 .modal-bar img.icon{
     filter: invert(100%) sepia(3%) saturate(4%) hue-rotate(287deg) brightness(105%) contrast(100%);
 }
+.table-jadwal-head{
+    background-color: #242424;
+}
+.table-jadwal th{
+    background-color: #242424;
+}
+.loading-page img{
+    filter: invert(100%) sepia(3%) saturate(4%) hue-rotate(287deg) brightness(105%) contrast(100%);
+}
+.table-jadwal td, .table-jadwal th, .table-jadwal h4, .table-jadwal h2{
+    color: white;
+}
+
+.table-jadwal tr:nth-child(odd){background-color: #121212;}
+.table-jadwal tr:nth-child(even){background-color: #0c0c0c;}

@@ -191,6 +191,7 @@
                 <a class="nb-button">
                     <h2>Jadwal Pelajaran</h2>
                     <h4 id="kelas">...</h4>
+                    <input type="hidden" id="kelasInput" value="">
                 </a>
             </div>
             <div class="navigation-bar-right">
@@ -236,11 +237,11 @@
             <div class="swiper-container other-swiper size size-4 round">
                 <div class="swiper-wrapper">
                     
-                    <a class="swiper-slide effect block half">
+                    <a class="swiper-slide effect block half loadJadwal" jenis="ptm">
                         <img src="i/school.svg">
                         <h4>PTM</h4>
                     </a>
-                    <a class="swiper-slide effect block half">
+                    <a class="swiper-slide effect block half loadJadwal" jenis="pjj">
                         <img src="i/home.svg">
                         <h4>PJJ</h4>
                     </a>
@@ -248,8 +249,10 @@
                 </div>
                 
             </div>
-
-            <div class="title">
+            <div id="table-jadwal" class="subpage">
+                
+            </div>
+            <div class="title" style="margin-top: 8px;">
                 <h2>Berita</h2>
                 <h4>Sesuai berita di situs sekolah.</h4>
             </div>
