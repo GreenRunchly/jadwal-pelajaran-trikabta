@@ -121,6 +121,12 @@
                     <option value="6">6</option>
                     <option value="7">7</option>
                 </select>
+                <label>Bagian</label>
+                <select onchange="setData(this.value,'kelas_bagian');" id="select_kelas_bagian">
+                    <option value="">Pilih Bagian</option>
+                    <option value="ganjil">Ganjil</option>
+                    <option value="genap">Genap</option>
+                </select>
             </form>
             <br>
             <div class="modal-bar">
@@ -193,7 +199,9 @@
                     <h2>Jadwal Pelajaran</h2>
                     <h4 id="kelas">...</h4>
                     <input type="hidden" id="kelasInput" value="">
+                    <input type="hidden" id="kelasBagianInput" value="ganjil">
                     <input type="hidden" id="jenisInput" value="ptm">
+
                 </a>
             </div>
             <div class="navigation-bar-right">
@@ -284,7 +292,7 @@
 
             <a class="title center toggle" toggle-id="app-settings" style="margin-top: 0px;margin-bottom: 16px;">
                
-                <h4 style="text-align: center;">Version <span id="appVersion"></span></h4>
+                <h4 style="text-align: center;">Version <span id="appVersion"></span> Beta Release</h4>
                 <input type="hidden" id="appVersionInput" value="1.2.0">
             </a>
 

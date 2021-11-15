@@ -160,7 +160,8 @@ var chknet = setInterval(function(){
 
     var jenis = $("#jenisInput").val();
     var kelas = $("#kelasInput").val();
-    cekJadwalWidget(kelas, 'ptm');
+    var bagian = $("#kelasBagianInput").val();
+    cekJadwalWidget(kelas, jenis, bagian);
     cekKoneksi();
 
 }, 15000);
@@ -245,7 +246,7 @@ function cekTips(){
 
 }
 /* Load Jadwal Function */
-function cekJadwal(kelas,tipe){
+function cekJadwal(kelas,tipe,bagian){
 
     $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/legend-ptm.json?"+ Date.now(),
     function(data, status){
@@ -255,7 +256,15 @@ function cekJadwal(kelas,tipe){
             $("#table-jadwal").empty();
             addTable = '';
             //console.log(data);
-            $.each(data.a, function (index, obj) {
+
+            if (bagian == 'ganjil'){
+                var dataPelajaranTemp = data.a;
+            }
+            if (bagian == 'genap'){
+                var dataPelajaranTemp = data.b;
+            }
+            
+            $.each(dataPelajaranTemp, function (index, obj) {
 
                 if (index == hariText.toLowerCase()){
                     var setTable = 'on';
@@ -289,7 +298,7 @@ function cekJadwal(kelas,tipe){
 
 }
 
-function cekJadwalWidget(kelas,tipe){
+function cekJadwalWidget(kelas,tipe,bagian){
 
     console.log('Check Widget');
 
@@ -298,8 +307,15 @@ function cekJadwalWidget(kelas,tipe){
         var legendData = data;
         $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/data/" + appVersion + "/" + kelas + "-" + tipe + ".json?"+ Date.now(),
         function(data, status){
-            var gotDay = 0;gotMapel = 0;
-            $.each(data.a, function (index, obj) {
+            var gotDay = 0; var gotMapel = 0;
+            if (bagian == 'ganjil'){
+                var dataPelajaranTemp = data.a;
+            }
+            if (bagian == 'genap'){
+                var dataPelajaranTemp = data.b;
+            }
+            
+            $.each(dataPelajaranTemp, function (index, obj) {
                 console.log('loop widget')
                 if (index == hariText.toLowerCase()){
                     console.log(hariText.toLowerCase());
@@ -331,7 +347,8 @@ function cekJadwalWidget(kelas,tipe){
                             if (gotMapel == 0){
                                 $("#widget-jadwal-detail-hari").html(hariText);
                                 $("#widget-jadwal-detail-mapel").html('Belum dimulai');
-                                $("#widget-jadwal-detail-namaguru").html('Mengambil data...');
+                                $("#widget-jadwal-detail-namaguru").html('Bisa lihat jadwal dibawah');
+                                $("#widget-jadwal-clock").html('<div class="loading-page"><img class="icon-white" src="i/clock.svg"></div>');
                             }
                         }
                         console.log(menit+' [[[]]] '+detik);
@@ -440,6 +457,8 @@ function cekDataSettings(){
     var kelas_temp = loadData('kelas');
     var kelas_jurusan_temp = loadData('kelas_jurusan');
     var kelas_ruang_temp = loadData('kelas_ruang');
+    var kelas_bagian_temp = loadData('kelas_bagian');
+    
     var fill_kelas_complete = 0;
 
     kelasChangeOption(kelas_jurusan_temp, 'kelas_jurusan');
@@ -456,11 +475,16 @@ function cekDataSettings(){
         $("#select_kelas_ruang").val(kelas_ruang_temp);
         fill_kelas_complete ++;
     }
+    if ( kelas_bagian_temp !== null ) {
+        $("#select_kelas_bagian").val(kelas_bagian_temp);
+        fill_kelas_complete ++;
+    }
 
-    if (fill_kelas_complete == 3){
+    if (fill_kelas_complete == 4){
         var kelas_complete = kelas_temp + '-' + kelas_jurusan_temp + '-' + kelas_ruang_temp;
         $("#kelas").html('Kelas ' + kelas_complete.toUpperCase().replace(/-/g, ' '));
         $("#kelasInput").val(kelas_complete);
+        $("#kelasBagianInput").val(kelas_bagian_temp);
         setData(true,'startup_done');
     }
     console.log('Filled ' + fill_kelas_complete);
@@ -479,7 +503,8 @@ function cekDataSettings(){
     //Widget Set
     var jenis = $("#jenisInput").val();
     var kelas = $("#kelasInput").val();
-    cekJadwalWidget(kelas, 'ptm');
+    var bagian = $("#kelasBagianInput").val();
+    cekJadwalWidget(kelas, jenis, bagian);
 
     console.log('Finish penerapan');
 }
@@ -497,13 +522,14 @@ $(document).on('click','.refreshConnection',function(e){
 $(document).on('click','.loadJadwal',function(e){
     var jenis = $(this).attr('jenis');
     var kelas = $("#kelasInput").val();
+    var bagian = $("#kelasBagianInput").val();
     $("#jenisInput").val(jenis);
 
     $("#table-jadwal").html('<div class="loading-page anim-rotate"><img src="i/spinner-third.svg"></div>');
 
     var loadJadwalInterval = setInterval(function(){ 
 
-        cekJadwal(kelas, jenis);
+        cekJadwal(kelas, jenis, bagian);
         clearInterval(loadJadwalInterval);
 
     }, 1000);
