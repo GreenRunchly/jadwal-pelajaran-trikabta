@@ -8,15 +8,16 @@ android {
         applicationId "id.rizkimandiri.jadwalpelajaran"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 7
-        versionName "1.2.0 Beta Release"
+        versionCode 12
+        versionName "1.2.0 Stable Release"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

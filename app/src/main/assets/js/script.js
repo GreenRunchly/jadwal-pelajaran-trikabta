@@ -189,7 +189,7 @@ function cekUpdate(versiAplikasi){
     $.get("https://greenrunchly.github.io/apps/jadwal-pelajaran/api/version.json?"+ Date.now(),
     function(data, status){
         
-        if (data.beta != versiAplikasi){
+        if (data.public != versiAplikasi){
 
             $("#app-notification-update").addClass("on");
             $("#app-notification-update").removeClass("off");
