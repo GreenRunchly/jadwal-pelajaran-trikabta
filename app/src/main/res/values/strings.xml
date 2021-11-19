@@ -2,4 +2,5 @@
     <string name="app_name">Jadwal Pelajaran Trikabta</string>
     <string name="app_version">Version 1.2.0 Stable Release</string>
     <string name="no_connection_text">Tidak ada koneksi internet, harap cek internet anda!</string>
+    <string name="kepalasekolah">Drs. H. Dedi Hidayat, M.Si</string>
 </resources>
