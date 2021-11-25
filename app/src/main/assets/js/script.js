@@ -175,7 +175,7 @@ function appCekKoneksi(){
 function appCekUpdate(){
     $.get(appServer + "/apps/jadwal-pelajaran/api/version.json?v=" + appSettingsDateTimestamp,
     function(data, status){
-        if (data.beta != appVersion){
+        if (data.public != appVersion){
             $("#app-notification-update").addClass("on");
             $("#app-notification-update").removeClass("off");        
         }else{            
