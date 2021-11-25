@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "id.rizkimandiri.jadwalpelajaran"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
-        versionCode 12
-        versionName "1.2.0 Stable Release"
+        versionCode 13
+        versionName "1.2.1 Stable Release"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
