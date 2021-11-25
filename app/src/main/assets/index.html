@@ -29,10 +29,26 @@
         <div class="loader-container">
             <div class="loader-container-progress"></div>
         </div>
-        <p class="loader-subtext" id="loading-tips">...</p>
+        <p class="loader-subtext" id="loading-tips">Loading assets..</p>
     </div>
 
-    <div id="app-notification-connection" class="modal">
+    <div id="app-notification-connection-connecting" class="modal on">
+        <div class="modal-content" style="display: flex;justify-content: center;flex-direction: column;">
+            <div class="modal-bar">
+                <div class="modal-bar-center">
+                    <img class="icon anim-rotate" src="i/spinner-third.svg">
+                </div>
+            </div>
+            <br>
+            <div class="title center">
+                <h2>Menghubungkan Server</h2>
+                <h4>Mohon Tunggu Sesaat...</h4>
+            </div>
+
+        </div>
+    </div>
+    
+    <div id="app-notification-connection" class="modal off">
         <div class="modal-content" style="display: flex;justify-content: center;flex-direction: column;">
             <div class="modal-bar">
                 <div class="modal-bar-center">
@@ -48,7 +64,7 @@
         </div>
     </div>
 
-    <div id="app-notification-maintenance" class="modal">
+    <div id="app-notification-maintenance" class="modal off">
         <div class="modal-content" style="display: flex;justify-content: center;flex-direction: column;">
             <div class="modal-bar">
                 <div class="modal-bar-center">
@@ -64,7 +80,7 @@
         </div>
     </div>
 
-    <div id="app-notification-update" class="modal">
+    <div id="app-notification-update" class="modal off">
         <div class="modal-content" style="display: flex;justify-content: center;flex-direction: column;">
             <div class="modal-bar">
                 <div class="modal-bar-center">
@@ -79,7 +95,7 @@
         </div>
     </div>
     
-    <div id="app-login" class="modal">
+    <div id="app-login" class="modal off">
         <div class="modal-content">
             <div class="modal-bar">
                 <div class="modal-bar-center">
@@ -98,21 +114,21 @@
             </div>
             <form autocomplete="off">
                 <label>Kelas</label>
-                <select onchange="setData(this.value,'kelas');" id="select_kelas">
+                <select onchange="setData(this.value,'app_settings_kelas');" id="select_kelas">
                     <option value="">Pilih Kelas</option>
                     <option value="10">10</option>
                     <option value="11">11</option>
                     <option value="12">12</option>
                 </select>
                 <label>Jurusan</label>
-                <select onchange="setData(this.value,'kelas_jurusan');" id="select_kelas_jurusan">
+                <select onchange="setData(this.value,'app_settings_jurusan');" id="select_kelas_jurusan">
                     <option value="">Pilih Jurusan</option>
                     <option value="mipa">MIPA</option>
                     <option value="ips">IPS</option>
                 </select>
                 <label>Ruangan</label>
-                <select onchange="setData(this.value,'kelas_ruang');" id="select_kelas_ruang">
-                    <option value="">Pilih Ruang</option>
+                <select onchange="setData(this.value,'app_settings_ruang');" id="select_kelas_ruang">
+                    <option value="">Pilih Ruangan</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -122,7 +138,7 @@
                     <option value="7">7</option>
                 </select>
                 <label>Bagian</label>
-                <select onchange="setData(this.value,'kelas_bagian');" id="select_kelas_bagian">
+                <select onchange="setData(this.value,'app_settings_bagian');" id="select_kelas_bagian">
                     <option value="">Pilih Bagian</option>
                     <option value="ganjil">Ganjil</option>
                     <option value="genap">Genap</option>
@@ -138,7 +154,7 @@
             </div>
             <form autocomplete="off">
                 <label>Theme</label>
-                <select onchange="setData(this.value,'app_theme');" id="select_app_theme">
+                <select onchange="setData(this.value,'app_settings_theme');" id="select_app_theme">
                     <option value="default-theme">Default Theme</option>
                     <option value="light-theme">Light Theme</option>
                     <option value="dark-theme">Dark Theme</option>
@@ -152,8 +168,8 @@
         </div>
     </div>
 
-    <div id="app-settings" class="modal">
-        <div class="modal-content">
+    <div id="app-settings" class="modal off">
+        <div class="modal-content" style="display: flex;justify-content: center;flex-direction: column;">
             <div class="modal-bar">
                 <div class="modal-bar-center">
                     <a class="mdl-button">
@@ -162,26 +178,19 @@
                     </a>
                 </div>
             </div>
+            <br>
             <div class="modal-bar">
                 <div class="modal-bar-center">
-                    <img src="assets/creator.jpg" style="border-radius: 50%;">
+                    <img class="creatorEasterEgg" src="assets/creator.jpg" style="border-radius: 50%;">
                 </div>
             </div>
             
             <div class="title center">
                 <h2>Rizki Irfan Anshori</h2>
                 <h4>Created with ❤️</h4>
+                <h4 class="resetSettings">ID: <span id="DeviceID"></span></h4>
             </div>
 
-            <br>
-
-            <form autocomplete="off">
-                <label>Data Saver</label>
-                <select onchange="setData(this.value,'app_datasaver_mode');" id="select_app_datasaver_mode">
-                    <option value="off">Disable</option>
-                    
-                </select>
-            </form>
             <div class="modal-bar">
                 <div class="modal-bar-center">
                     <a class="mdl-button effect toggle penerapanSettings" toggle-id="app-settings"><img src="i/check.svg"></a>
@@ -280,7 +289,7 @@
             <div id="berita">
                 <div class="swiper-container other-swiper size size-3 round" >
                     <div class="swiper-wrapper" >
-                        <a class="swiper-slide left" onclick="cekBerita('refresh');">
+                        <a class="swiper-slide left" onclick="appCekBeritaSekolah();">
                             <div class="box">
                                 <h4>Connecting Failed</h4>
                                 <h4 class="small">Ketuk untuk menghubungkan kembali.</h4>
@@ -303,27 +312,6 @@
 </body>
 <script src="js/script.js"></script>
 <script type="text/javascript">
-    var versiAplikasi = $("#appVersionInput").val();
-
-    $("#appVersion").html(versiAplikasi);
-
-    /* Check koneksi server */
-    cekKoneksi();
-
-    /* Check Update */
-    cekUpdate(versiAplikasi);
-
-    /* Loading Tips */
-    cekTips();
-
-    /* Check Berita */
-    cekBerita();
-
-    /* Check Banner */
-    cekBanner();
-
-    /* Loading Data Settings */
-    cekDataSettings();
 
     var swiperDrawer = new Swiper('.other-swiper', {
         slidesPerView: 'auto',

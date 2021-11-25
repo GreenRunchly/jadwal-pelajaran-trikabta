@@ -5,4 +5,4 @@ Aplikasi dibuat agar para siswa akan lebih mudah melihat jadwal pelajaran mereka
 Android 5.1 <br>
 
 # Download it now!
-https://github.greenrunchly.my.id/jadwal-pelajaran-sman3/1.2.0.3_latest.apk
+https://play.google.com/store/apps/details?id=id.rizkimandiri.jadwalpelajaran

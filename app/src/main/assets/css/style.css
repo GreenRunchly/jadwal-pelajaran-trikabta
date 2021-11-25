@@ -133,6 +133,9 @@ input,select{
     width: 100%;
     min-height: 60px;
     background-color: #0097ff;
+    position: sticky;
+    top: 0;
+    z-index: 1999;
 }
 .navigation-bar-left{
     display: flex;
@@ -208,6 +211,7 @@ input,select{
 }
 .size.size-2{
     width: 100%;
+    height: 220px;
     aspect-ratio: 16/9;
 }
 .size.size-3{
@@ -240,7 +244,7 @@ input,select{
     overflow: hidden;
     text-align: center;
     font-size: 18px;
-    background: #0097ff;
+    background: #90d1ff;
     background-position: center;
     background-size: cover;
 
@@ -508,7 +512,7 @@ input,select{
     justify-content: flex-end;
     flex-direction: column;
     width: calc(100% - 40px);
-    height: 30px;
+    min-height: 30px;
     margin:20px 16px;
     margin-top: 30px;
     margin-bottom: 10px;
@@ -722,6 +726,14 @@ input,select{
 }
 .icon-white{
     filter: invert(100%) sepia(3%) saturate(4%) hue-rotate(287deg) brightness(105%) contrast(100%);
+}
+
+.creatorEasterEgg{
+    transition: 0.2s;
+}
+.creatorEasterEgg:active{
+    transform: scale(0.9);
+    transition: 0.05s;
 }
 
 /*Mobile ya kak*/

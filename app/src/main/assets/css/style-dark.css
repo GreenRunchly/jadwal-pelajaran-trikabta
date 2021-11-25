@@ -10,6 +10,9 @@ body{
 .navigation-bar{
 	background-color: #343434 !important;
 }
+.swiper-slide{
+    background-color: #838383;
+}
 .swiper-slide.effect{
 	background-color: #343434;
 }
