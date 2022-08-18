@@ -105,24 +105,23 @@
                     </a>
                 </div>
             </div>
+            <br>
             <div class="modal-bar">
                 <div class="modal-bar-left">
                     <a class="mdl-button">
-                        <h3>Profile Aplikasi</h3>
+                        <h3>Tentukan Data Kelas</h3>
                     </a>
                 </div>
             </div>
             <form autocomplete="off">
                 <label>Kelas</label>
                 <select onchange="setData(this.value,'app_settings_kelas');" id="select_kelas">
-                    <option value="">Pilih Kelas</option>
                     <option value="10">10</option>
                     <option value="11">11</option>
                     <option value="12">12</option>
                 </select>
                 <label>Jurusan</label>
                 <select onchange="setData(this.value,'app_settings_jurusan');" id="select_kelas_jurusan">
-                    <option value="">Pilih Jurusan</option>
                     <option value="mipa">MIPA</option>
                     <option value="ips">IPS</option>
                 </select>
@@ -137,14 +136,14 @@
                     <option value="6">6</option>
                     <option value="7">7</option>
                 </select>
-                <label>Bagian</label>
-                <select onchange="setData(this.value,'app_settings_bagian');" id="select_kelas_bagian">
-                    <option value="">Pilih Bagian</option>
-                    <option value="ganjil">Ganjil</option>
-                    <option value="genap">Genap</option>
-                </select>
+                <div style="display:none;">
+                    <label>Bagian</label>
+                    <select onchange="setData(this.value,'app_settings_bagian');" id="select_kelas_bagian">
+                        <option value="ganjil">Ganjil</option>
+                        <option value="genap">Genap</option>
+                    </select>
+                </div>
             </form>
-            <br>
             <div class="modal-bar">
                 <div class="modal-bar-left">
                     <a class="mdl-button">
