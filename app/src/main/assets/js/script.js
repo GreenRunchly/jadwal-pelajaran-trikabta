@@ -1,5 +1,5 @@
 /* Meta Data Aplikasi */
-var appVersion = '1.2.1'; /// versi aplikasi
+var appVersion = '1.2.2'; /// versi aplikasi
 var appDeviceID = '';
 var appServer = 'https://greenrunchly.github.io'; /// tanpa slash di akhir 'http://localhost','https://greenrunchly.github.io'
 var appConnected = 'off';
@@ -294,7 +294,7 @@ function appCekJadwal(){
         }
                 
         indexEdit = index.substr(0,1).toUpperCase()+index.substr(1);
-        addTable += '<div class="table-jadwal-head toggle-table" reset-class="table-jadwal" toggle-id="ptm-' + index + '"><img src="i/book.svg"><h2>' + indexEdit + '</h2></div>';
+        addTable += '<div class="table-jadwal-head toggle-table" reset-class="table-jadwal" toggle-id="ptm-' + index + '"><img src="i/book-spells.svg"><h2>' + indexEdit + '</h2></div>';
         addTable += '<table class="table-jadwal ' + setTable + '"  id="ptm-' + index + '"><tr><th class="jam">Jam</th><th class="waktu">Waktu</th><th class="mapel">Mata Pelajaran</th></tr>'
         $.each(obj, function (key, value) {
             kodemapel = 'no'+ value.mapel;
@@ -444,7 +444,10 @@ function appLoadSettingsData(){
         $("#select_kelas_bagian").val(appSettingsBagian);
         appSettingsFillComplete ++;
     }else{
-        dataError ++;
+        setData($('#select_kelas_bagian').val(),'app_settings_bagian');
+        appSettingsBagian = loadData('app_settings_bagian');
+        $("#select_kelas_bagian").val(appSettingsBagian);
+        appSettingsFillComplete ++;
     }
     if (appSettingsFillComplete == 4){
         appSettingsKelasFull = appSettingsKelas + '-' + appSettingsJurusan + '-' + appSettingsRuang;
@@ -541,6 +544,7 @@ $(document).on('click','.loadJadwal',function(e){
         
         clearInterval(loadJadwalInterval);
     }, 200);
+    $(this).html('<h4>Refresh Tabel</h4>');
     appCekJadwal();
     console.log('Membuka jadwal');
 });
