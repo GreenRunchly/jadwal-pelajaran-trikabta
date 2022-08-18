@@ -447,7 +447,7 @@ input,select{
     min-width: 40px;
     height: 100%;
     flex: 1;
-    padding: 4px;
+    padding: 8px;
     box-sizing: border-box;
 }
 .mdl-button.effect{

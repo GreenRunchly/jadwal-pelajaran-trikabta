@@ -12,7 +12,7 @@ var appSettingsKelasFull = appSettingsKelas+'-'+appSettingsJurusan+'-'+appSettin
 var appSettingsJenisJadwal = 'ptm';
 
 var appSettingsTheme = 'dark-theme';
-var appSettingsDebugMode = 'off';
+var appSettingsDebugMode = 'on';
 
 var appSettingsStartupDone = 0;
 var appSettingsFillComplete = 0;
@@ -151,7 +151,7 @@ function appSwitchRuang(input,pada){
 function appCekKoneksi(){
     $.get(appServer + "/apps/jadwal-pelajaran/api/isconnected.json?v=" + appSettingsDateTimestamp,
     function(data, status){
-        if (data.maintenance == 1){
+        if ((data.maintenance == 1) && (appSettingsDebugMode == 'off')){
             appConnected = 'off';
             $("#app-notification-maintenance").addClass("on");
             $("#app-notification-maintenance").removeClass("off");
@@ -175,13 +175,23 @@ function appCekKoneksi(){
 function appCekUpdate(){
     $.get(appServer + "/apps/jadwal-pelajaran/api/version.json?v=" + appSettingsDateTimestamp,
     function(data, status){
-        if (data.public != appVersion){
-            $("#app-notification-update").addClass("on");
-            $("#app-notification-update").removeClass("off");        
-        }else{            
-            $("#app-notification-update").addClass("off");
-            $("#app-notification-update").removeClass("on");
-        }        
+        if (appSettingsDebugMode == 'off'){
+            if (data.public != appVersion){
+                $("#app-notification-update").addClass("on");
+                $("#app-notification-update").removeClass("off");        
+            }else{            
+                $("#app-notification-update").addClass("off");
+                $("#app-notification-update").removeClass("on");
+            }
+        }else{
+            if (data.beta != appVersion){
+                $("#app-notification-update").addClass("on");
+                $("#app-notification-update").removeClass("off");        
+            }else{            
+                $("#app-notification-update").addClass("off");
+                $("#app-notification-update").removeClass("on");
+            }
+        }
     }).fail(function(){         
         $("#app-notification-update").addClass("off");
         $("#app-notification-update").removeClass("on");
@@ -311,6 +321,7 @@ function appCekJadwal(){
 /// Cek Tips Function
 function appCekTips(){    
     temp = acakArray1D(appStorageTips);
+    console.log('App Check tips!');
     $("#loading-tips").html(temp[0]);
 }
 /// Reset App Data Function
@@ -394,6 +405,8 @@ function appLoadServerData(){
     }else{
         dataError ++;
     }
+    /// Load tips
+    appCekTips();
     /// Reload Berita
     appCekBeritaSekolah();
     console.log('Load Data Success to App');  
@@ -404,6 +417,12 @@ function appLoadSettingsData(){
 
     /// Version App
     $("#appVersion").html(appVersion);
+    if (appSettingsDebugMode == 'on'){
+        $("#appVersionMode").html('Beta Release');
+    }else{
+        $("#appVersionMode").html('Stable Release');
+    }
+    
 
     /// DeviceID Item
     if ( loadData('app_device_id') !== null ) {
