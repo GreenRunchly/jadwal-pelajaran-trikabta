@@ -5,7 +5,7 @@ var appServer = 'https://greenrunchly.github.io'; /// tanpa slash di akhir 'http
 var appConnected = 'off';
 
 var appSettingsKelas = '12';
-var appSettingsJurusan = 'IPS';
+var appSettingsJurusan = 'ips';
 var appSettingsRuang = '1';
 var appSettingsBagian = 'genap';
 var appSettingsKelasFull = appSettingsKelas+'-'+appSettingsJurusan+'-'+appSettingsRuang;
