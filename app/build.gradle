@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\D\\AppProjects\\jadwal-pelajaran-sman3\\keystore.jks')
+            storePassword 'Ilfanindo1878'
+            keyAlias 'rizki'
+            keyPassword 'Ilfanindo1878'
+        }
+        release {
+            storeFile file('D:\\D\\AppProjects\\jadwal-pelajaran-sman3\\keystore.jks')
+            keyAlias 'rizki'
+            keyPassword 'Ilfanindo1878'
+            storePassword 'Ilfanindo1878'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -8,10 +22,11 @@ android {
         applicationId "id.rizkimandiri.jadwalpelajaran"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 13
-        versionName "1.2.1 Stable Release"
+        versionCode 15
+        versionName "1.2.2 Stable Release"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
@@ -21,6 +36,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+    }
+    ndkVersion '25.0.8775105'
 }
 
 dependencies {

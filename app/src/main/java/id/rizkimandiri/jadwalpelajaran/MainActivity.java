@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
       setContentView(R.layout.activity_main);
 
       ///ca-app-pub-3940256099942544/6300978111 test
-      MobileAds.initialize(this, "ca-app-pub-8641844379696896/4515918796");
+      ///MobileAds.initialize(this, "ca-app-pub-8641844379696896/4515918796");
 
-      adView = findViewById(R.id.adView);
-      AdRequest adRequest = new AdRequest.Builder().build();
+      //adView = findViewById(R.id.adView);
+      //AdRequest adRequest = new AdRequest.Builder().build();
       //adView.loadAd(adRequest);
 
       webView = findViewById(R.id.webView);

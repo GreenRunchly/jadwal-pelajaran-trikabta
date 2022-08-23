@@ -12,7 +12,7 @@ var appSettingsKelasFull = appSettingsKelas+'-'+appSettingsJurusan+'-'+appSettin
 var appSettingsJenisJadwal = 'ptm';
 
 var appSettingsTheme = 'dark-theme';
-var appSettingsDebugMode = 'on';
+var appSettingsDebugMode = 'off';
 
 var appSettingsStartupDone = 0;
 var appSettingsFillComplete = 0;
@@ -341,18 +341,21 @@ function appSavingServerData(){
         appServer + '/apps/jadwal-pelajaran/api/tips.json?v=' + appSettingsDateTimestamp,
         appServer + '/apps/jadwal-pelajaran/api/banner.json?v=' + appSettingsDateTimestamp,
         appServer + '/apps/jadwal-pelajaran/data/' + appVersion + '/legend-ptm.json?v=' + appSettingsDateTimestamp,
-        appServer + '/apps/jadwal-pelajaran/data/' + appVersion + '/' + appSettingsKelasFull + '-ptm.json?v=' + appSettingsDateTimestamp,
-        appServer + '/apps/jadwal-pelajaran/data/' + appVersion + '/legend-pjj.json?v=' + appSettingsDateTimestamp,
-        appServer + '/apps/jadwal-pelajaran/data/' + appVersion + '/' + appSettingsKelasFull + '-pjj.json?v=' + appSettingsDateTimestamp
+        appServer + '/apps/jadwal-pelajaran/data/' + appVersion + '/' + appSettingsKelasFull + '-ptm.json?v=' + appSettingsDateTimestamp
     ]
     var appServerResourceSet = [
         'app_storage_tips',
         'app_storage_banner',
         'app_storage_legendptm',
-        'app_storage_datajadwalptm',
+        'app_storage_datajadwalptm'
+    ]
+    /*
+        appServer + '/apps/jadwal-pelajaran/data/' + appVersion + '/legend-pjj.json?v=' + appSettingsDateTimestamp,
+        appServer + '/apps/jadwal-pelajaran/data/' + appVersion + '/' + appSettingsKelasFull + '-pjj.json?v=' + appSettingsDateTimestamp
+        
         'app_storage_legendpjj',
         'app_storage_datajadwalpjj'
-    ]
+    */
     var progress = 0;
     $.each(appServerResource, function( index, value ) {
         /// Looping Saving
@@ -363,7 +366,7 @@ function appSavingServerData(){
                 setData(data, appServerResourceSet[index]); 
                 console.log(index+'Init "' + value + '" Success to ' + appServerResourceSet[index]);
                 progress ++;
-                if (progress == 6){
+                if (progress == 4){
                     appLoadServerData();
                 }
             }
@@ -395,7 +398,7 @@ function appLoadServerData(){
     }else{
         dataError ++;
     }
-    if ( loadData('app_storage_legendpjj') !== null ) {
+    /*if ( loadData('app_storage_legendpjj') !== null ) {
         appStorageLegendPJJ = JSON.parse(loadData('app_storage_legendpjj'));
     }else{
         dataError ++;
@@ -404,7 +407,7 @@ function appLoadServerData(){
         appStorageDataJadwalPJJ = JSON.parse(loadData('app_storage_datajadwalpjj'));
     }else{
         dataError ++;
-    }
+    }*/
     /// Load tips
     appCekTips();
     /// Reload Berita
@@ -577,7 +580,7 @@ if (appSettingsError == 0){
     appCekBeritaSekolah();
     if (appSettingsStartupDone == 1){
         var appLoadServerDataState = appLoadServerData();
-        if (appLoadServerDataState == 6){
+        if (appLoadServerDataState == 4){
             appSavingServerData();
         }else{
             appCekBanner();
