@@ -22,8 +22,8 @@ android {
         applicationId "id.rizkimandiri.jadwalpelajaran"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 15
-        versionName "1.2.2 Stable Release"
+        versionCode 16
+        versionName "1.2.3 Stable Release"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
