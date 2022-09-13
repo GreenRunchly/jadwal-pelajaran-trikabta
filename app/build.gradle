@@ -3,13 +3,13 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('D:\\D\\AppProjects\\jadwal-pelajaran-sman3\\keystore.jks')
+            storeFile file('E:\\D\\AppProjects\\jadwal-pelajaran-sman3\\keystore.jks')
             storePassword 'Ilfanindo1878'
             keyAlias 'rizki'
             keyPassword 'Ilfanindo1878'
         }
         release {
-            storeFile file('D:\\D\\AppProjects\\jadwal-pelajaran-sman3\\keystore.jks')
+            storeFile file('E:\\D\\AppProjects\\jadwal-pelajaran-sman3\\keystore.jks')
             keyAlias 'rizki'
             keyPassword 'Ilfanindo1878'
             storePassword 'Ilfanindo1878'
