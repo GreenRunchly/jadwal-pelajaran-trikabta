@@ -1,7 +1,7 @@
 /* Meta Data Aplikasi */
-var appVersion = '1.2.2'; /// versi aplikasi
+var appVersion = '1.2.3'; /// versi aplikasi
 var appDeviceID = '';
-var appServer = 'https://greenrunchly.github.io'; /// tanpa slash di akhir 'http://localhost','https://greenrunchly.github.io'
+var appServer = 'https://api.sman3kabupatentangerang.sch.id'; /// tanpa slash di akhir 'http://localhost','https://greenrunchly.github.io'
 var appConnected = 'off';
 
 var appSettingsKelas = '12';
