@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Jadwal Pelajaran Trikabta</string>
-    <string name="app_version">Version 1.2.3 Stable Release</string>
+    <string name="app_version">Version 1.3.0 Student Edition</string>
     <string name="no_connection_text">Tidak ada koneksi internet, harap cek internet anda!</string>
     <string name="kepalasekolah">Lewitanti Sekrenitiyanah, M.Pd</string>
 </resources>

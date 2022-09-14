@@ -1,5 +1,5 @@
 /* Meta Data Aplikasi */
-var appVersion = '1.2.3'; /// versi aplikasi
+var appVersion = '1.3.0'; /// versi aplikasi
 var appDeviceID = '';
 var appServer = 'https://api.sman3kabupatentangerang.sch.id'; /// tanpa slash di akhir 'http://localhost','https://greenrunchly.github.io'
 var appConnected = 'off';
@@ -12,7 +12,7 @@ var appSettingsKelasFull = appSettingsKelas+'-'+appSettingsJurusan+'-'+appSettin
 var appSettingsJenisJadwal = 'ptm';
 
 var appSettingsTheme = 'dark-theme';
-var appSettingsDebugMode = 'off';
+var appSettingsDebugMode = 'on';
 
 var appSettingsStartupDone = 0;
 var appSettingsFillComplete = 0;
@@ -421,9 +421,9 @@ function appLoadSettingsData(){
     /// Version App
     $("#appVersion").html(appVersion);
     if (appSettingsDebugMode == 'on'){
-        $("#appVersionMode").html('Beta Release');
+        $("#appVersionMode").html('Insider Student Edition');
     }else{
-        $("#appVersionMode").html('Stable Release');
+        $("#appVersionMode").html('Student Release');
     }
     
 
