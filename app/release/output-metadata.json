@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 16,
-      "versionName": "1.2.3 Stable Release",
+      "versionCode": 17,
+      "versionName": "1.3.0 Student Edition",
       "outputFile": "app-release.apk"
     }
   ],

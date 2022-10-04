@@ -1,54 +1,58 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
     signingConfigs {
         debug {
-            storeFile file('E:\\D\\AppProjects\\jadwal-pelajaran-sman3\\keystore.jks')
+            storeFile file('E:\\GitProject\\jadwal-pelajaran-trikabta-assets\\keystore\\keystore.jks')
             storePassword 'Ilfanindo1878'
             keyAlias 'rizki'
             keyPassword 'Ilfanindo1878'
         }
         release {
-            storeFile file('E:\\D\\AppProjects\\jadwal-pelajaran-sman3\\keystore.jks')
+            storeFile file('E:\\GitProject\\jadwal-pelajaran-trikabta-assets\\keystore\\keystore.jks')
+            storePassword 'Ilfanindo1878'
             keyAlias 'rizki'
             keyPassword 'Ilfanindo1878'
-            storePassword 'Ilfanindo1878'
         }
     }
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdk 32
 
     defaultConfig {
         applicationId "id.rizkimandiri.jadwalpelajaran"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdk 21
+        targetSdk 32
         versionCode 17
         versionName "1.3.0 Student Edition"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    ndkVersion '25.0.8775105'
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    ndkVersion '25.1.8937393'
+    buildToolsVersion '33.0.0'
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.firebase:firebase-ads:19.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.google.android.gms:play-services-afs-native:19.0.3'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.gms:play-services-ads-lite:21.2.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

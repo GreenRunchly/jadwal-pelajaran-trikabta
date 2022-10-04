@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="splashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:statusBarColor">@color/main_blue</item>
+        <item name="android:colorAccent">@color/main_cyan</item>
+        <item name="android:colorPrimaryDark">@color/main_blue_dark</item>
+        <item name="android:colorPrimary">@color/main_blue</item>
+    </style>
+    <style name="mainAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/main_blue</item>
+        <item name="android:colorAccent">@color/main_cyan</item>
+        <item name="android:colorPrimaryDark">@color/main_blue_dark</item>
+        <item name="android:colorPrimary">@color/main_blue</item>
+    </style>
+</resources>
