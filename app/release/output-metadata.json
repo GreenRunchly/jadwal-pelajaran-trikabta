@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "id.rizkimandiri.jadwalpelajaran",
+  "applicationId": "id.greenrunchly.webviewexample",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 17,
-      "versionName": "1.3.0 Student Edition",
+      "versionCode": 1,
+      "versionName": "Awokwkw 1.0.0",
       "outputFile": "app-release.apk"
     }
   ],
